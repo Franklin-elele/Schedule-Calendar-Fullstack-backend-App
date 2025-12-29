@@ -1,6 +1,8 @@
-const Signup = require("../models/Signup.models");
+// const Signup = require("../models/Signup.models");
+import Signup from "../models/Signup.models.js";
 const bcrypt = require("bcrypt");
-const StaffModel = require("../models/staff.models");
+// const StaffModel = require("../models/staff.models");
+import StaffModel from "../models/staff.models.js";
 
 // ---------- Signup Controller ----------
 exports.signupUser = async (req, res) => {
