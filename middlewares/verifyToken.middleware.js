@@ -1,5 +1,5 @@
-import { findById } from "../models/signup.models.js";
-import { findById as _findById } from "../models/staff.models.js";
+import StaffModel from "../models/staff.models.js";
+import Signup from "../models/signup.models.js";
 import jwt from "jsonwebtoken";
 const { verify } = jwt;
 
@@ -22,9 +22,9 @@ export default async function verifyToken(req, res, next) {
     
     let user;
     if (decoded.role === 'staff') {
-      user = await _findById(decoded._id).select("-password");
+      user = await StaffModel.findById(decoded._id).select("-password");
     } else {
-      user = await findById(decoded._id).select("-password");
+      user = await Signup.findById(decoded._id).select("-password");
     }
 
     if (!user) {
