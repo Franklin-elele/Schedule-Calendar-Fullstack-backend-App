@@ -1,5 +1,5 @@
 import { createHash } from "crypto";
-import { findOne } from "../models/staff.models";
+import { findOne } from "../models/staff.models.js";
 
 // ---------- Set Staff Password Controller ----------
 export async function staffPassword(req, res) {

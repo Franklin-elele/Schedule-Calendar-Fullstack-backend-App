@@ -5,8 +5,8 @@ import express, { json } from "express";
 import { connect } from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import authRoutes from "./routes/auth.routes";
-import eventRoutes from "./routes/event.routes";
+import authRoutes from "./routes/auth.routes.js";
+import eventRoutes from "./routes/event.routes,js";
 
 const app = express();
 

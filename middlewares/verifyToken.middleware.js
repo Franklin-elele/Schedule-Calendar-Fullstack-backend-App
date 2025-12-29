@@ -1,6 +1,6 @@
 import { verify } from "jsonwebtoken";
 import { findById } from "../models/signup.models.js";
-import { findById as _findById } from "../models/staff.models";
+import { findById as _findById } from "../models/staff.models.js";
 
 export default async function verifyToken(req, res, next) {
   // const authHeader = req.headers.athorization  ;

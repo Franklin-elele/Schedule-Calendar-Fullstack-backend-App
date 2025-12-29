@@ -1,5 +1,5 @@
-import StaffModel, { find, findByIdAndDelete, findById } from "../models/staff.models";
-import sendEmail from "../utils/sendEmail";
+import StaffModel, { find, findByIdAndDelete, findById } from "../models/staff.models.js";
+import sendEmail from "../utils/sendEmail.js";
 
 // ---------- Admin Controller ----------
 export async function createStaff(req, res) {

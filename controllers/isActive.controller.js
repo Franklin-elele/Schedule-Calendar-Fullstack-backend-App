@@ -1,4 +1,4 @@
-import { findById } from '../models/staff.models';
+import { findById } from '../models/staff.models.js';
 
 // ---------- Check if Staff is Active Controller ----------
 

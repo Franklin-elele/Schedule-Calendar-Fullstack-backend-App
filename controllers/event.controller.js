@@ -1,4 +1,4 @@
-import Event, { find, findById, findByIdAndUpdate, findByIdAndDelete } from "../models/events.models";
+import Event, { find, findById, findByIdAndUpdate, findByIdAndDelete } from "../models/events.models.js";
 
 
 // ---------- Schedule Event Controller ----------
