@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { signupUser, loginUser, logoutUser } from "../controllers/auth.controller";
-import { createStaff, getStaffAccounts, deleteStaffAccount, updateToken } from "../controllers/admin.controller";
-import { staffIsActive } from "../controllers/isActive.controller";
-import { staffPassword } from "../controllers/staff.controller";
-import verifyToken from "../middlewares/verifyToken.middleware";
-import authorizeRoles from "../middlewares/authorizeRoles.middleware";
+import { signupUser, loginUser, logoutUser } from "../controllers/auth.controller.js";
+import { createStaff, getStaffAccounts, deleteStaffAccount, updateToken } from "../controllers/admin.controller.js";
+import { staffIsActive } from "../controllers/isActive.controller.js";
+import { staffPassword } from "../controllers/staff.controller.js";
+import verifyToken from "../middlewares/verifyToken.middleware.js";
+import authorizeRoles from "../middlewares/authorizeRoles.middleware.js";
 const router = Router();
 
 
