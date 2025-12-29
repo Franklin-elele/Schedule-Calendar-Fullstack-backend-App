@@ -1,7 +1,7 @@
 // const Signup = require("../models/Signup.models");
 import Signup from "../models/signup.models.js";
 // const bcrypt = require("bcrypt");
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 // const StaffModel = require("../models/staff.models");
 import StaffModel from "../models/staff.models.js";
 
