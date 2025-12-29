@@ -1,8 +1,11 @@
 import { model } from "mongoose";
 import { Schema } from "mongoose";
 import { randomBytes, createHash } from "crypto";
-import { sign } from "jsonwebtoken";
 import { hash } from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const { sign } = jwt;
+
 
 // ---------- Schema Rules ----------
 
