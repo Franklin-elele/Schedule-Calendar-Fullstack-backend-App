@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { scheduledEvent, getAllEvents, getEventById, updateEvent, deleteEvent } from "../controllers/event.controller";
-import verifyToken from "../middlewares/verifyToken.middleware";
-import authorizeRoles from "../middlewares/authorizeRoles.middleware";
+import { scheduledEvent, getAllEvents, getEventById, updateEvent, deleteEvent } from "../controllers/event.controller.js";
+import verifyToken from "../middlewares/verifyToken.middleware.js";
+import authorizeRoles from "../middlewares/authorizeRoles.middleware.js";
 const router = Router();
 
 router.post(
