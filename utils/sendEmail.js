@@ -1,6 +1,6 @@
-import { setApiKey, send } from "@sendgrid/mail";
+import sgMail from "@sendgrid/mail";
 
-setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 // ---------- Send Email Function ----------
@@ -14,7 +14,7 @@ const sendEmail = async ({ to, subject, text }) => {
       subject,
       text,
     };
-    await send(msg);
+    await sgMail.send(msg);
     console.log(process.env.SENDGRID_API_KEY)
     console.log("Email sent successfully!");
   } catch (error) {
