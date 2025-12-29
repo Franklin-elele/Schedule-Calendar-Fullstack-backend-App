@@ -1,11 +1,11 @@
-import { findById } from '../models/staff.models.js';
+import StaffModel from "../models/staff.models.js";
 
 // ---------- Check if Staff is Active Controller ----------
 
 export async function staffIsActive(req, res) {
     try {
         const { id } = req.params;
-        const staff = await findById(id)
+        const staff = await StaffModel.findById(id)
         if (!staff) {
             return res.status(404).json({ message: 'Staff not found' })
         }

@@ -1,4 +1,4 @@
-import StaffModel, { find, findByIdAndDelete, findById } from "../models/staff.models.js";
+import StaffModel from "../models/staff.models.js";
 import sendEmail from "../utils/sendEmail.js";
 
 // ---------- Admin Controller ----------
@@ -45,7 +45,7 @@ export async function createStaff(req, res) {
 // ---------- Get All Staff Accounts ---------
 export async function getStaffAccounts(req, res) {
   try {
-    const staffAccounts = await find().select(
+    const staffAccounts = await StaffModel.find().select(
       "-password -inviteToken -inviteTokenExpires"
     );
     res.status(200).json({ staffAccounts });
@@ -58,7 +58,7 @@ export async function getStaffAccounts(req, res) {
 export async function deleteStaffAccount(req, res) {
   try {
     const { id } = req.params;
-    const deleteStaff = await findByIdAndDelete(id);
+    const deleteStaff = await StaffModel.findByIdAndDelete(id);
     if (!deleteStaff) {
       return res.status(404).json({ message: "Staff account not found" });
     }
@@ -72,7 +72,7 @@ export async function deleteStaffAccount(req, res) {
 export async function updateToken(req, res) {
   try {
     const { id } = req.params;
-    const updateToken = await findById(id);
+    const updateToken = await StaffModel.findById(id);
 
     if (!updateToken || updateToken.role !== "staff") {
       return res.status(404).json({ message: "Staff account not found" });

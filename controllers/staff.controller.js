@@ -1,5 +1,5 @@
 import { createHash } from "crypto";
-import { findOne } from "../models/staff.models.js";
+import StaffModel from "../models/staff.models.js";
 
 // ---------- Set Staff Password Controller ----------
 export async function staffPassword(req, res) {
@@ -18,7 +18,7 @@ export async function staffPassword(req, res) {
       .update(req.query.token)
       .digest("hex");
 
-    const verifyToken = await findOne({
+    const verifyToken = await StaffModel.findOne({
       inviteToken: hashedToken,
       inviteTokenExpires: { $gt: Date.now() },
     });
