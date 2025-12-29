@@ -1,5 +1,5 @@
 // const Signup = require("../models/Signup.models");
-import Signup from "../models/Signup.models.js";
+import Signup from "../models/signup.models.js";
 const bcrypt = require("bcrypt");
 // const StaffModel = require("../models/staff.models");
 import StaffModel from "../models/staff.models.js";
