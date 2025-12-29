@@ -1,8 +1,8 @@
-const StaffModel = require("../models/staff.models");
-const sendEmail = require("../utils/sendEmail");
+import StaffModel, { find, findByIdAndDelete, findById } from "../models/staff.models";
+import sendEmail from "../utils/sendEmail";
 
 // ---------- Admin Controller ----------
-exports.createStaff = async (req, res) => {
+export async function createStaff(req, res) {
   try {
     const { email, name } = req.body;
 
@@ -40,25 +40,25 @@ exports.createStaff = async (req, res) => {
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
-};
+}
 
 // ---------- Get All Staff Accounts ---------
-exports.getStaffAccounts = async (req, res) => {
+export async function getStaffAccounts(req, res) {
   try {
-    const staffAccounts = await StaffModel.find().select(
+    const staffAccounts = await find().select(
       "-password -inviteToken -inviteTokenExpires"
     );
     res.status(200).json({ staffAccounts });
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
-};
+}
 
 // ---------- Delete Staff Account ----------
-exports.deleteStaffAccount = async (req, res) => {
+export async function deleteStaffAccount(req, res) {
   try {
     const { id } = req.params;
-    const deleteStaff = await StaffModel.findByIdAndDelete(id);
+    const deleteStaff = await findByIdAndDelete(id);
     if (!deleteStaff) {
       return res.status(404).json({ message: "Staff account not found" });
     }
@@ -66,13 +66,13 @@ exports.deleteStaffAccount = async (req, res) => {
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
-};
+}
 
 // ---------- Update Invite Token ----------
-exports.updateToken = async (req, res) => {
+export async function updateToken(req, res) {
   try {
     const { id } = req.params;
-    const updateToken = await StaffModel.findById(id);
+    const updateToken = await findById(id);
 
     if (!updateToken || updateToken.role !== "staff") {
       return res.status(404).json({ message: "Staff account not found" });
@@ -94,4 +94,4 @@ exports.updateToken = async (req, res) => {
   } catch (err) {
     res.status(400).json({ Error: err.message });
   }
-};
+}

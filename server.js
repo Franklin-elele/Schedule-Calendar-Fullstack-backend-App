@@ -1,17 +1,17 @@
-const dotenv = require("dotenv");
-dotenv.config();
+import { config } from "dotenv";
+config();
 
-const express = require("express");
-const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const authRoutes = require("./routes/auth.routes");
-const eventRoutes = require("./routes/event.routes")
+import express, { json } from "express";
+import { connect } from "mongoose";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import authRoutes from "./routes/auth.routes";
+import eventRoutes from "./routes/event.routes";
 
 const app = express();
 
 // Middleware
-app.use(express.json());
+app.use(json());
 app.use(cookieParser());
 app.use(
   cors({
@@ -22,8 +22,7 @@ app.use(
 );
 
 // MongoDB Connection
-mongoose
-  .connect(process.env.MONGO_URL)
+connect(process.env.MONGO_URL)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error Connecting:", err));
 

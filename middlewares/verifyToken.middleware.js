@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
-const Signup = require("../models/Signup.models");
-const StaffModel = require("../models/staff.models");
+import { verify } from "jsonwebtoken";
+import { findById } from "../models/signup.models.js";
+import { findById as _findById } from "../models/staff.models";
 
-module.exports = async function verifyToken(req, res, next) {
+export default async function verifyToken(req, res, next) {
   // const authHeader = req.headers.athorization  ;
   
 
@@ -16,13 +16,13 @@ module.exports = async function verifyToken(req, res, next) {
       return res.status(401).json({ error: "No token provided" });
     }
 
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const decoded = verify(token, process.env.ACCESS_TOKEN_SECRET);
     
     let user;
     if (decoded.role === 'staff') {
-      user = await StaffModel.findById(decoded._id).select("-password");
+      user = await _findById(decoded._id).select("-password");
     } else {
-      user = await Signup.findById(decoded._id).select("-password");
+      user = await findById(decoded._id).select("-password");
     }
 
     if (!user) {

@@ -1,9 +1,8 @@
-const crypto = require("crypto");
-const StaffModel = require("../models/staff.models");
-const bcrypt = require("bcrypt");
+import { createHash } from "crypto";
+import { findOne } from "../models/staff.models";
 
 // ---------- Set Staff Password Controller ----------
-exports.staffPassword = async (req, res) => {
+export async function staffPassword(req, res) {
   try {
     const { password } = req.body;
 
@@ -15,12 +14,11 @@ exports.staffPassword = async (req, res) => {
 }
 
 
-    const hashedToken = crypto
-      .createHash("sha256")
+    const hashedToken = createHash("sha256")
       .update(req.query.token)
       .digest("hex");
 
-    const verifyToken = await StaffModel.findOne({
+    const verifyToken = await findOne({
       inviteToken: hashedToken,
       inviteTokenExpires: { $gt: Date.now() },
     });
@@ -52,4 +50,4 @@ exports.staffPassword = async (req, res) => {
   } catch (err) {
     res.status(404).json({ Error: err.message });
   }
-};  
+}  

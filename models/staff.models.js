@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
-const crypto = require("crypto");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+import { model } from "mongoose";
+import { Schema } from "mongoose";
+import { randomBytes, createHash } from "crypto";
+import { sign } from "jsonwebtoken";
+import { hash } from "bcrypt";
 
 // ---------- Schema Rules ----------
 
@@ -67,7 +67,7 @@ const staffSchema = new Schema(
 staffSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
-  this.password = await bcrypt.hash(this.password, 10);
+  this.password = hash(this.password, 10);
   // Not saving confirm password in DB
   this.confirmPassword = undefined;
 
@@ -76,8 +76,8 @@ staffSchema.pre("save", async function (next) {
 
 // ----------- Invite Token Generation -----------
 staffSchema.methods.generateInviteToken = function () {
-    const token = crypto.randomBytes(20).toString('hex');
-    this.inviteToken = crypto.createHash('sha256').update(token).digest('hex');
+    const token = randomBytes(20).toString('hex');
+    this.inviteToken = createHash('sha256').update(token).digest('hex');
     this.inviteTokenExpires = Date.now() + 24 * 60 * 60 * 1000;
 
     return token;
@@ -86,7 +86,7 @@ staffSchema.methods.generateInviteToken = function () {
 
 // ------------ RefreshToken Generation ------------
 staffSchema.methods.generateRefreshToken = async function () {
-    const jsonRefreshToken = jwt.sign(
+    const jsonRefreshToken = sign(
         {
             _id: this._id,
         },
@@ -102,7 +102,7 @@ staffSchema.methods.generateRefreshToken = async function () {
 
 // ------------ AccessToken Generation ------------
 staffSchema.methods.generateAccessToken = async function () {
-    return jwt.sign(
+    return sign(
         {
             _id: this._id,
         },
@@ -113,6 +113,6 @@ staffSchema.methods.generateAccessToken = async function () {
 
 // ----------- Model Export ----------
 
-const StaffModel = mongoose.model("StaffModel", staffSchema);
+const StaffModel = model("StaffModel", staffSchema);
 
-module.exports = StaffModel;
+export default StaffModel;

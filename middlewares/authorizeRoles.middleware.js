@@ -1,5 +1,5 @@
   
-  module.exports = function authorizeRoles(...allowedRoles) {
+  export default function authorizeRoles(...allowedRoles) {
     return (req, res, next) => {
       // Check if user info is attached to the request - Checks if the user is Logged In
       if (!req.user) {

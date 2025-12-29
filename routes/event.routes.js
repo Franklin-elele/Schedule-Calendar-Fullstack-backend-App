@@ -1,14 +1,8 @@
-const express = require("express");
-const {
-  scheduledEvent,
-  getAllEvents,
-  getEventById,
-  updateEvent,
-  deleteEvent,
-} = require("../controllers/event.controller");
-const verifyToken = require("../middlewares/verifyToken.middleware");
-const authorizeRoles = require("../middlewares/authorizeRoles.middleware");
-const router = express.Router();
+import { Router } from "express";
+import { scheduledEvent, getAllEvents, getEventById, updateEvent, deleteEvent } from "../controllers/event.controller";
+import verifyToken from "../middlewares/verifyToken.middleware";
+import authorizeRoles from "../middlewares/authorizeRoles.middleware";
+const router = Router();
 
 router.post(
   "/events",
@@ -45,4 +39,4 @@ router.delete(
   deleteEvent
 );
 
-module.exports = router;
+export default router;

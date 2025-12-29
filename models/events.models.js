@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose, { Schema as _Schema, model } from 'mongoose';
 const { Schema } = mongoose;
 
 const eventSchema = new Schema(
@@ -34,7 +34,7 @@ const eventSchema = new Schema(
             }
         },
         createdBy: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: _Schema.Types.ObjectId,
             ref: 'Signup',
             required: true,
         },
@@ -52,13 +52,13 @@ const eventSchema = new Schema(
             enum: ['daily', 'weekly', 'monthly', 'yearly'],
         },
         updatedBy: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: _Schema.Types.ObjectId,
             ref: 'Signup',
         },
     }, { timestamps: true }
 );
 
 
-const Event = mongoose.model('Events', eventSchema)
+const Event = model('Events', eventSchema)
 
-module.exports = Event;
+export default Event;

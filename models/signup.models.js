@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
+import { model } from "mongoose";
+import { Schema } from "mongoose";
+import { hash } from "bcrypt";
+import { sign } from "jsonwebtoken";
+import crypto from "crypto";
 
 // ---------- Schema Rules ----------
 const signupSchema = new Schema(
@@ -54,7 +54,7 @@ const signupSchema = new Schema(
 signupSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
-  this.password = await bcrypt.hash(this.password, 10);
+  this.password = hash(this.password, 10);
   // Not saving confirm password in DB
   this.confirmPassword = undefined;
 
@@ -63,7 +63,7 @@ signupSchema.pre("save", async function (next) {
 
 // ------------ RefreshToken Generation ------------
 signupSchema.methods.generateRefreshToken = async function () {
-  const jsonRefreshToken = jwt.sign(
+  const jsonRefreshToken = sign(
     {
       _id: this._id,
     },
@@ -79,7 +79,7 @@ signupSchema.methods.generateRefreshToken = async function () {
 
 // ------------ AccessToken Generation ------------
 signupSchema.methods.generateAccessToken = async function () {
-  return jwt.sign(
+  return sign(
     {
       _id: this._id,
     },
@@ -93,6 +93,6 @@ signupSchema.methods.generateAccessToken = async function () {
 
 // ----------- Model Export ----------
 
-const Signup = mongoose.model("Signup", signupSchema);
+const Signup = model("Signup", signupSchema);
 
-module.exports = Signup;
+export default Signup;

@@ -1,16 +1,11 @@
-const express = require("express");
-const { signupUser, loginUser, logoutUser } = require("../controllers/auth.controller");
-const {
-  createStaff,
-  getStaffAccounts,
-  deleteStaffAccount,
-  updateToken,
-} = require("../controllers/admin.controller");
-const { staffIsActive } = require("../controllers/isActive.controller");
-const { staffPassword } = require("../controllers/staff.controller");
-const verifyToken = require("../middlewares/verifyToken.middleware");
-const authorizeRoles = require("../middlewares/authorizeRoles.middleware");
-const router = express.Router();
+import { Router } from "express";
+import { signupUser, loginUser, logoutUser } from "../controllers/auth.controller";
+import { createStaff, getStaffAccounts, deleteStaffAccount, updateToken } from "../controllers/admin.controller";
+import { staffIsActive } from "../controllers/isActive.controller";
+import { staffPassword } from "../controllers/staff.controller";
+import verifyToken from "../middlewares/verifyToken.middleware";
+import authorizeRoles from "../middlewares/authorizeRoles.middleware";
+const router = Router();
 
 
 router.post("/signup", signupUser);
@@ -61,5 +56,5 @@ router.get(
   logoutUser
 )
 
-module.exports = router;
+export default router;
   

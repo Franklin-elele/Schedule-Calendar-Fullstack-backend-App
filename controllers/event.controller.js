@@ -1,8 +1,8 @@
-const Event = require("../models/events.models");
+import Event, { find, findById, findByIdAndUpdate, findByIdAndDelete } from "../models/events.models";
 
 
 // ---------- Schedule Event Controller ----------
-exports.scheduledEvent = async (req, res) => {
+export async function scheduledEvent(req, res) {
   try {
     const { title, description, startDate, endDate, isRecurring, recurrencePattern, assignedTo } = req.body;
     const createdBy = req.user._id;
@@ -39,10 +39,10 @@ exports.scheduledEvent = async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
-};
+}
 
 // ---------- Get All Events Controller ----------
-exports.getAllEvents = async (req, res) => {
+export async function getAllEvents(req, res) {
   try {
     let query = {};
 
@@ -57,7 +57,7 @@ exports.getAllEvents = async (req, res) => {
     }
     // Admin/staff see all (no filter)
 
-    const events = await Event.find(query)
+    const events = await find(query)
       .populate('createdBy', '-password')
       .sort({ startDate: 1 });  // Sort by date
 
@@ -65,13 +65,13 @@ exports.getAllEvents = async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
-};
+}
 
 // --------- Get Event by ID Controller ----------
-exports.getEventById = async (req, res) => {
+export async function getEventById(req, res) {
   try {
     const { id } = req.params;
-    const event = await Event.findById(id)
+    const event = await findById(id)
       .populate('createdBy', 'name email')
       // .populate('assignedTo', 'name email');
     if (!event) {
@@ -82,13 +82,13 @@ exports.getEventById = async (req, res) => {
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
-};
+}
 
 // ----------- Update Event Controller ----------
-exports.updateEvent = async (req, res) => {
+export async function updateEvent(req, res) {
   try {
     const { id } = req.params;
-    const updates = await Event.findByIdAndUpdate(id, req.body, {
+    const updates = await findByIdAndUpdate(id, req.body, {
       new: true,
     })
       .populate('createdBy', 'name email')
@@ -105,10 +105,10 @@ exports.updateEvent = async (req, res) => {
 }
 
 // ---------- Delete Event Controller ----------
-exports.deleteEvent = async (req, res) => {
+export async function deleteEvent(req, res) {
   try {
     const { id } = req.params;
-    const event = await Event.findById(id);
+    const event = await findById(id);
 
     if (!event) {
       return res.status(404).json({ message: "Event not found" });
@@ -118,7 +118,7 @@ exports.deleteEvent = async (req, res) => {
       return res.status(403).json({ message: "Unauthorized to delete this event" });
     }
 
-    await Event.findByIdAndDelete(id)
+    await findByIdAndDelete(id)
 
     res.status(200).json({ message: "Event deleted successfully" });
 
