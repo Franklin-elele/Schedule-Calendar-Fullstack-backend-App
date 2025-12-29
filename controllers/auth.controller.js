@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import StaffModel from "../models/staff.models.js";
 
 // ---------- Signup Controller ----------
-exports.signupUser = async (req, res) => {
+export const signupUser = async (req, res) => {
   try {
     const { email, name, password, role } = req.body;
 
@@ -53,7 +53,7 @@ exports.signupUser = async (req, res) => {
 };
 
 // ---------- Login Controller ----------
-exports.loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   try {
     const { email, password, role } = req.body;
 
@@ -103,7 +103,7 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-exports.logoutUser = async (req, res) => {
+export const logoutUser = async (req, res) => {
   try {
     res.clearCookie('accessToken',{
       httpOnly: true,
